@@ -1,5 +1,7 @@
 package com.credable.currencyconversionservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,8 @@ import java.util.Map;
 
 @RestController
 public class CurrencyConversionController {
+
+    private final Logger logger = LoggerFactory.getLogger(CurrencyConversionController.class);
 
     @Autowired
     CurrencyExchangeProxy proxy;
@@ -34,6 +38,7 @@ public class CurrencyConversionController {
         CurrencyConversionBean response = proxy.retrieveExchangeValue(from, to);
         response.setQuantity(quantity);
         response.setTotalCalculatedAmount(quantity.multiply(response.getConversionMultiple()));
+        logger.info("{}", response);
         return response;
     }
 }

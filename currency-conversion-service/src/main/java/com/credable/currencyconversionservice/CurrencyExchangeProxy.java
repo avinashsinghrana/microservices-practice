@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 
 //@FeignClient(name = "currency-exchange-service", url = "localhost:8000")
-@FeignClient(name = "currency-exchange-service")
+@FeignClient(name = "currency-zuul-api-getway")
 @RibbonClient(name = "currency-exchange-service")
 public interface CurrencyExchangeProxy {
     /**
@@ -21,6 +21,7 @@ public interface CurrencyExchangeProxy {
      * @param to   field mapping is mandatory in case of older version
      * @return CurrencyConversionBean
      */
-    @GetMapping("/currency-exchange/from/{from}/to/{to}")
+//    @GetMapping("/currency-exchange/from/{from}/to/{to}")
+    @GetMapping("currency-exchange-service/currency-exchange/from/{from}/to/{to}")
     CurrencyConversionBean retrieveExchangeValue(@PathVariable("from") Currency from, @PathVariable("to") Currency to);
 }
